@@ -1,0 +1,37 @@
+<form name="simple_form" id="simple_form" action="https://getsimpleform.com/messages?form_api_token={{ token }}" enctype="multipart/form-data" method="post">
+  <div class="row uniform 50%">
+    <div class="8u 12u(3)">
+      <input type="email" name="email" id="simple_form-field-email" placeholder="{{ fields.email.placeholder }}" />
+    </div>
+    <div class="4u 12u(3)">
+      <input type="submit" value="{{ fields.submit.title }}" class="fit" />
+    </div>
+
+    <div class="row uniform">
+      <div class="12u">
+        <div id="simple_form-success"></div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  $(function() {
+    $('#simple_form').submit(function() {
+      $.ajax({
+        dataType: 'jsonp',
+        url: "http://getsimpleform.com/messages/ajax?form_api_token={{ token }}",
+        data: {
+          email: $("#simple_form-field-email").val(),
+        }
+      }).done(function() {
+        $('#simple_form-success').append("<strong>{{ messages.success }}</strong>");
+
+        //clear all fields
+        $('#simple_form').trigger("reset");
+      });
+
+      return false;
+    })
+  });
+</script>

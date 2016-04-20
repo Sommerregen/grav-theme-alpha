@@ -1,0 +1,19 @@
+{% extends 'default.html.twig' %}
+
+{% block body_content %}
+  <section id="main" class="container 75%">
+    <header>
+      <h2>{{ page.title }}</h2>
+      {% if page.header.subtitle %}<p>{{ page.header.subtitle }}</p>{% endif %}
+    </header>
+
+    <div class="box">
+      {% if config.plugins.simple_form.enabled %}
+        {{ simple_form() }}
+      {% else %}
+        <h2>Missed plugin</h2>
+        <p>You need to install Simple Form plugin to see the contact form.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

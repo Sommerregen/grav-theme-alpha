@@ -1,0 +1,17 @@
+{% set collection = page.collection() %}
+
+{% block body_content %}
+  {% if collection | length %}
+    {% for item in collection %}
+      <section id="{{ item.slug }}" class="{{ item.header.class }}">
+        {% if item.children.count %}
+          {% for child in item.children %}
+            {{ child.content }}
+          {% endfor %}
+        {% else %}
+          {{ item.content }}
+        {% endif %}
+      </section>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

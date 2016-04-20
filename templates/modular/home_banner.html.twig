@@ -1,0 +1,21 @@
+{% set collection = page.collection() %}
+
+{% block body_content %}
+  {% if collection | length %}
+    {% if page.media.images | length %}
+      {% set image = page.media.images | first %}
+      {% set page_banner = "background-image: url('" ~ url('theme://assets/css/images/overlay.png') ~ "'), url('" ~ image.url ~ "') !important;" %}
+    {% endif %}
+
+    <section id="banner" style="{{ page_banner }}">
+      <h2>{{ page.title }}</h2>
+      {{ page.content }}
+
+      <ul class="actions">
+        {% for item in collection %}
+          <li><a href="{{ item.header.link }}" class="{{ item.header.class }}">{{ item.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+{% endblock %}

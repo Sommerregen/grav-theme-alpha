@@ -1,0 +1,13 @@
+{% extends 'default.html.twig' %}
+
+{% set modules = page.collection() %}
+
+{% block body %}<body class="landing">{% endblock %}
+
+{% block body_header_class %}alt{% endblock %}
+
+{% block body_content %}
+  {% for module in modules %}
+    {{ module.content }}
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,62 @@
+<form name="simple_form" id="simple_form" action="https://getsimpleform.com/messages?form_api_token={{ token }}" enctype="multipart/form-data" method="post">
+  <div class="row uniform 50%">
+    <div class="6u 12u(3)">
+      <input type="text" name="name" id="simple_form-field-name" value="{{ fields.name.default }}" placeholder="{{ fields.name.placeholder | default(fields.name.title) }}" class="{{ fields.name.class }}" />
+    </div>
+
+    <div class="6u 12u(3)">
+      <input type="email" name="email" id="simple_form-field-email" value="{{ fields.email.default }}" placeholder="{{ fields.email.placeholder | default(fields.email.title) }}" class="{{ fields.email.class }}" />
+    </div>
+  </div>
+
+  <div class="row uniform 50%">
+    <div class="12u">
+      <input type="text" name="subject" id="simple_form-field-subject" value="{{ fields.subject.default }}" placeholder="{{ fields.subject.placeholder | default(fields.subject.title) }}" class="{{ fields.subject.class }}" />
+    </div>
+  </div>
+
+  <div class="row uniform 50%">
+    <div class="12u">
+      <textarea name="message" id="simple_form-field-message" placeholder="{{ fields.message.placeholder | default(fields.message.title) }}" rows="6" class="{{ fields.message.class }}">{{ fields.message.default }}</textarea>
+    </div>
+  </div>
+
+  <div class="row uniform">
+    <div class="12u">
+      <ul class="actions align-center">
+        <li><input type="submit" class="{{ fields.submit.class }}" value="{{ fields.submit.title }}" /></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row uniform">
+    <div class="12u">
+      <div id="simple_form-success"></div>
+    </div>
+  </div>
+</form>
+
+<script>
+  $(function() {
+    $('#simple_form').submit(function() {
+      $.ajax({
+        dataType: 'jsonp',
+        url: "http://getsimpleform.com/messages/ajax?form_api_token={{ token }}",
+        data: {
+          {% for key, field in fields %}
+            {% if field.type != 'submit' %}
+              {{ key }}: $("#simple_form-field-{{ key }}").val(),
+            {% endif %}
+          {% endfor %}
+        }
+      }).done(function() {
+        $('#simple_form-success').append("<strong>{{ messages.success }}</strong>");
+
+        //clear all fields
+        $('#simple_form').trigger("reset");
+      });
+
+      return false;
+    })
+  });
+</script>

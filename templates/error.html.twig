@@ -1,0 +1,13 @@
+{% extends 'default.html.twig' %}
+
+{% block body_content %}
+  <section id="main" class="container">
+    <header>
+      <h2>Error {{ page.header.http_response_code }}</h2>
+    </header>
+
+    <div class="box">
+      {{ page.content }}
+    </div>
+  </section>
+{% endblock %}
